@@ -1,0 +1,26 @@
+{
+  "name": "sharestand",
+  "description": "appdescription",
+  "main": "index.html",
+  "authors": [
+    "Chris <slashdrew@gmail.com>"
+  ],
+  "license": "SimPL-2.0",
+  "keywords": [
+    "share",
+    "stand"
+  ],
+  "homepage": "www.sharestand.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularfire": "^2.0.2",
+    "angular-ui-router": "0.3.1"
+  }
+}

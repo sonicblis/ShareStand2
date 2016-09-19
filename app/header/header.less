@@ -1,0 +1,52 @@
+header{
+  position: static;
+  left: 0;
+  right: 0;
+  top: 0;
+  overflow: auto;
+  background: forestgreen;
+  border-bottom: solid 3px darken(forestgreen, 10%);
+
+  brand{
+    color: white;
+    float: left;
+    font-size: 1.6em;
+    padding: .78em;
+    cursor: default;
+  }
+
+  user-info{
+    display: block;
+    overflow: auto;
+    padding: 1.7em;
+  }
+
+  ul{
+    float: right;
+    list-style-type: none;
+
+    li{
+      display:inline;
+      float:left;
+
+      color: white;
+      cursor: pointer;
+
+      &:hover{
+        background: darken(forestgreen, 10%);
+      }
+
+      a{
+        text-decoration: none;
+        padding: 1.7em !important;
+        color: white;
+
+        &:hover, &:active, &:focus{
+          background: inherit !important;
+          color: white !important;
+          border: 0 !important;
+        }
+      }
+    }
+  }
+}
