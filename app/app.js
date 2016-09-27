@@ -1,5 +1,5 @@
 (function () {
-	angular.module('shareStand', ['ui.router', 'uiGmapgoogle-maps'])
+	angular.module('shareStand', ['ui.router', 'uiGmapgoogle-maps', 'firebase'])
 		.run(['$rootScope', function($rootScope){
 			//connect to firebase
 			firebase.initializeApp({

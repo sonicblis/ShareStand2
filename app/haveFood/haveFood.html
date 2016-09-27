@@ -1,0 +1,3 @@
+<login ng-hide="haveFoodController.user.id"></login>
+<eula ng-hide="!haveFoodController.user.id || haveFoodController.user.eulaAccepted"></eula>
+<food-list ng-show="haveFoodController.user.eulaAccepted"></food-list>

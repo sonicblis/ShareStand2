@@ -1,0 +1,6 @@
+<input class="form-control" placeholder="Type of Food" type="text" ng-model="foodAdderController.food.name">
+<input class="form-control" placeholder="Description" type="text" ng-model="foodAdderController.food.description">
+<input class="form-control" placeholder="How Many" type="number" ng-model="foodAdderController.food.quantity">
+<input class="form-control" placeholder="Of what unit of measure" type="text" ng-model="foodAdderController.food.measurement">
+<button type="submit" ng-click="foodAdderController.addFood()" class="btn btn-primary">Add It</button>
+<button type="button" ng-click="foodAdderController.cancelAdding()" class="btn btn-warning">Cancel</button>

@@ -11,19 +11,20 @@
 					};
 
 					//set userService user
-					userService.setUser(userInfo);
-
-					firebase.database().ref('users/' + id).set(userInfo);
+					firebase.database().ref('users/' + userInfo.id).set(userInfo, function(){
+						userService.setUser(userInfo);
+					});
 				}
 				else{
-					firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
+					userService.setUser(null);
 				}
 			});
 		}])
-		.service('userService', ['$q', userService]);
+		.service('userService', ['$q', '$firebaseObject', userService]);
 
-	function userService($q){
-		var userProvided = $q.defer(),
+	function userService($q, firebaseObject){
+		var self = this,
+			userProvided = $q.defer(),
 			subscribers = [],
 			lastUser = null;
 
@@ -32,17 +33,34 @@
 			func(user);
 		}
 
-		this.onNewUserProvided = function(func, subscriberName){
+		self.onNewUserProvided = function(func, subscriberName){
 			func.subscriberName = subscriberName;
 			subscribers.push(func);
 		};
-		this.getUser = function(){
+		self.getUser = function(){
 			return userProvided.promise;
 		};
-		this.setUser = function(user){
-			lastUser = user;
-			userProvided.resolve(user);
+		self.setUser = function(user){
+			try {
+				lastUser = user ? firebaseObject(firebase.database().ref('users').child(user.id)) : user;
+			}
+			catch(err){
+				console.error(err);
+			}
+			user ? lastUser.$loaded(() => userProvided.resolve(lastUser)) : userProvided.reject();
 			subscribers.forEach(callSubscriber);
+		};
+		self.setUserProperty = function(name, value){
+			var userId = lastUser.id;
+			firebase.database()
+				.ref('users')
+				.child(userId)
+				.child(name)
+				.set(value);
+		};
+		self.doLogin = function(){
+			var provider = new firebase.auth.GoogleAuthProvider();
+			firebase.auth().signInWithPopup(provider);
 		};
 	}
 })(firebase);

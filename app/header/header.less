@@ -1,3 +1,33 @@
+@header-padding: 13px 15px;
+
+@media (max-width: 767px){
+  header{
+    .nav{
+      transition: transform .25s;
+      position: absolute;
+      left: 100%;
+      top: 53px;
+      width: 160px;
+      height: 100vh;
+      transform: translateX(0);
+      background: forestgreen;
+      border-left: solid 1px darken(forestgreen, 10%);
+      z-index: 100;
+
+      li{
+        display: block;
+        float: none;
+        border-bottom: solid 1px darken(forestgreen, 10%);
+      }
+
+      &.expanded{
+        transition: transform .25s;
+        transform: translateX(-100%);
+      }
+    }
+  }
+}
+
 header{
   position: static;
   left: 0;
@@ -10,15 +40,22 @@ header{
   brand{
     color: white;
     float: left;
-    font-size: 1.6em;
-    padding: .78em;
+    padding: 7px 14px;
+    font-size: 1.5em;
     cursor: default;
+  }
+
+  .fa-bars{
+    color: white;
+    font-size: 1.5em;
+    margin-right: 15px;
+    margin-top: 13px;
   }
 
   user-info{
     display: block;
     overflow: auto;
-    padding: 1.7em;
+    padding: @header-padding;
   }
 
   ul{
@@ -37,8 +74,9 @@ header{
       }
 
       a{
-        text-decoration: none;
-        padding: 1.7em !important;
+        text-decoration: none !important;
+        display: inline-block;
+        padding: @header-padding !important;
         color: white;
 
         &:hover, &:active, &:focus{

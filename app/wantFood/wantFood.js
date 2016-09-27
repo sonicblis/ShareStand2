@@ -28,20 +28,8 @@ function WantFoodController(uiGmapGoogleMapApi, userService) {
 			navigator.geolocation.getCurrentPosition(setMapCenter, console.error);
 		}
 		else {
-			//we'll need to request an address... or something
-			//how to get from an address to a long/lat
-			$http.get('https://maps.googleapis.com/maps/api/geocode/json?address=3173 Head River Rd, Virginia Beach, VA&key=AIzaSyCl78XL55A3KExJtetl82YJr6Zbnlr9Wmc').then(function (geoInfo) {
-				var result = {
-					latitude: geoInfo.data.results[0].geometry.location.lat,
-					longitude: geoInfo.data.results[0].geometry.location.lng
-				};
-				// if (peopleService.user.authenticated) {
-				// 	peopleService.userRef.child('lat').set(result.latitude);
-				// 	peopleService.userRef.child('lng').set(result.longitude);
-				// }
-				self.map.center.latitude = result.latitude;
-				self.map.center.longitude = result.longitude;
-			});
+			//show them a way to create an account (without eula) so they can enter their address
+			console.warn('The user refused or doesn\'t support location services');
 		}
 	})
 }

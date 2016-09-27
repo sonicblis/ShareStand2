@@ -1,0 +1,44 @@
+<spacer class="col-lg-3 hidden-md-down"></spacer>
+<container class="col-lg-6 col-sm-12 col-xs-12">
+	<heading>
+		Great, let's put it in for someone to find!
+	</heading>
+	<div>
+		<content>
+			First, let's take a moment to make sure we're on the same page.  Any food that you post as available needs to meet some criteria.
+		</content>
+		<terms>
+			<item ng-repeat="item in eulaController.criteriaItems">
+				<i ng-click="eulaController.toggleCriteriaItem(item)" class="fa" ng-class="{'fa-check-square-o checked':item.agreed, 'fa-square-o':!item.agreed}"></i>
+				<div>
+					{{item.terms}}
+				</div>
+			</item>
+		</terms>
+		<content>
+			Lastly, we'll need your address so people know where to pick it up.
+		</content>
+		<ng-form name="eulaController.addressForm">
+			<div class="row">
+				<div class="form-group col-lg-8">
+					<input class="form-control" ng-model="eulaController.address.street" placeholder="Street Address" required type="text">
+				</div>
+				<div class="form-group col-lg-4">
+					<input class="form-control" ng-model="eulaController.address.suite" placeholder="Suite or Appt." type="text">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-lg-6">
+					<input class="form-control" ng-model="eulaController.address.city" placeholder="City" required type="text">
+				</div>
+				<div class="form-group col-lg-2">
+					<input class="form-control" ng-model="eulaController.address.state" pattern="\w{2}" maxlength="2" required placeholder="State" type="text">
+				</div>
+				<div class="form-group col-lg-4">
+					<input class="form-control" ng-model="eulaController.address.zip" pattern="\d{5}" required placeholder="Zip" type="text">
+				</div>
+			</div>
+		</ng-form>
+		<button ng-disabled="!eulaController.valid()" ng-click="eulaController.accept()" class="less-bright" >I'm In, Let's Go</button>
+	</div>
+</container>

@@ -14,6 +14,7 @@
 		}
 
 		this.user = {};
+		this.doLogin = userService.doLogin;
 
 		//init
 		userService.getUser()

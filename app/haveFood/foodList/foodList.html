@@ -1,0 +1,19 @@
+<heading>Your Food</heading>
+<div class="row">
+    <div class="col-lg-3 hidden-md-down"></div>
+    <food-adder on-hide="foodListController.hideAdder()" ng-class="{'display':foodListController.adding}" class="col-lg-6"></food-adder>
+</div>
+<div class="row" ng-hide="foodListController.adding">
+    <div class="col-lg-3 hidden-md-down"></div>
+    <div class="col-lg-6 text-xs-center">
+        <!--No food to display-->
+        <div class="text-xs-left" ng-show="foodListController.foodList.length == 0">
+            We're so glad you decided to share your surplus food.
+            You can start adding your food for others to find right away.
+        </div>
+        <button ng-click="foodListController.adding = true" ng-hide="foodListController.adding" class="btn btn-primary">Add Food</button>
+
+        <!--food list-->
+        <div ng-repeat="food in foodListController.foodList">{{food.name}}: {{food.description}}</div>
+    </div>
+</div>

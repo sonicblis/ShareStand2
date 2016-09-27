@@ -1,0 +1,63 @@
+@import 'colors';
+
+.block{
+  display: block;
+  overflow: auto;
+}
+
+.inline-block{
+  display: inline-block;
+  overflow: auto;
+}
+
+h4{
+  padding: 0;
+  margin: 0 0 15px;
+  font-weight: 400;
+}
+
+heading{
+  color: @headers;
+  font-weight: 400;
+  display: block;
+  overflow: auto;
+  font-size: 1.5rem;
+  margin: 15px 0;
+}
+
+.control-label{
+  font-weight: 400;
+}
+
+input[type='text'], input[type='number']{
+
+  height: auto;
+  outline: 0;
+
+  &.ng-valid:not(.ng-pristine){
+    border: solid 1px #00AA00;
+  }
+
+  &.ng-invalid:not(.ng-pristine){
+    border: solid 1px #804b43;
+  }
+}
+
+button{
+  border: solid 1px #ccc;
+  background: white;
+  padding: 5px 15px;
+  border-radius: 5px;
+
+  &.less-bright{
+    color: white;
+    background: @less-bright;
+    border-color: darken(@less-bright, 15%);
+  }
+
+  &:disabled{
+    color: #bbb;
+    background: #ddd;
+    border-color: #ccc;
+  }
+}

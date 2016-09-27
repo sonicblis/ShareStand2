@@ -1,5 +1,6 @@
 <brand>Share Stand</brand>
-<ul class="nav">
+<i class="hidden-md-up pull-right fa fa-bars" ng-click="headerController.menuUp = !headerController.menuUp"></i>
+<ul class="nav" ng-class="{'expanded':headerController.menuUp}">
     <li>
         <a ui-sref="wantFood" ui-sref-active="active">Want Food</a>
     </li>
