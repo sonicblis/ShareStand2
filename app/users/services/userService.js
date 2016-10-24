@@ -11,7 +11,7 @@
 					};
 
 					//set userService user
-					firebase.database().ref('users/' + userInfo.id).set(userInfo, function(){
+					firebase.database().ref('users/' + userInfo.id).update(userInfo, function(){
 						userService.setUser(userInfo);
 					});
 				}

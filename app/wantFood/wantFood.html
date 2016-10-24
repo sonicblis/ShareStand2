@@ -4,7 +4,10 @@
     </map-header>
     <map>
         <ui-gmap-google-map center='wantFoodController.map.center' zoom='wantFoodController.map.zoom'>
-
+            <ui-gmap-marker ng-repeat="food in wantFoodController.foods"
+                    idKey='food.$id'
+                    coords='food.coords'>
+            </ui-gmap-marker>
         </ui-gmap-google-map>
     </map>
 </map-panel>
@@ -13,4 +16,8 @@
         <input type="text">
         <i class="fa fa-search"></i>
     </result-list-header>
+    <result-item ng-repeat="food in wantFoodController.foods">
+        {{food.name}}: {{food.quantity}} {{food.measurement}}
+        <div><small>{{food.description}}</small></div>
+    </result-item>
 </result-list>

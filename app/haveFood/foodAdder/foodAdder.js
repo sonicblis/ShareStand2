@@ -15,7 +15,7 @@
 		function associateUserToFood(user){
 			return $q(function (resolve) {
 				self.food.owner = user.id;
-				self.food.coord = user.coords;
+				self.food.coords = {latitude: user.coords.lat, longitude: user.coords.lng};
 				resolve(self.food);
 			});
 		}

@@ -15,6 +15,11 @@
 					resolve(foodArray);
 				});
 			}
+			self.getAllFood = function(){
+				return $q(function (resolve, reject) {
+					resolve($firebaseArray(dataSource.database().ref('food')));
+				});
+			};
 			self.saveFood = function(food){
 				return $q(function (resolve) {
 					dataSource.database().ref('food').push(food);
