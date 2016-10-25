@@ -54,9 +54,24 @@ want-food{
 
     result-item{
       .block;
-      padding: 5px;
+      padding: 7px;
       margin: 5px;
       border-bottom: solid 1px #ccc;
+      border-radius: 4px;
+
+      &.selected{
+        background: #3e3a3c;
+        color: white;
+      }
+
+      food-offer{
+        .block;
+
+        select, textarea{
+          width: 100%;
+          margin-top: 5px;
+        }
+      }
 
       small{
         color: #aaa;

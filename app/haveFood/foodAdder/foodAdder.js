@@ -2,7 +2,8 @@
 	angular.module('shareStand')
 		.component('foodAdder', {
 			bindings: {
-				onHide: '&'
+				onHide: '&',
+				food: '<'
 			},
 			templateUrl: 'app/haveFood/foodAdder/foodAdder.html',
 			controller: ['userService', 'foodService', '$q', FoodAdderController],
@@ -21,6 +22,7 @@
 		}
 
 		self.food = {};
+		self.action = 'Save';
 		self.addFood = function(){
 			userService.getUser()
 				.then(associateUserToFood)
@@ -35,5 +37,10 @@
 				resolve();
 			});
 		};
+
+		//init
+		if (self.food.$id){
+			self.action = 'Save Changes';
+		}
 	}
 })();

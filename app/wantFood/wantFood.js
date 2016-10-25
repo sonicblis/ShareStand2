@@ -29,6 +29,15 @@ function WantFoodController(uiGmapGoogleMapApi, userService, foodService, $q) {
 			resolve(foodWatcher);
 		});
 	}
+	function setUsersFoodToSelf(foods){
+		return $q(function (resolve) {
+			self.usersFood = foods;
+			resolve(foods);
+		});
+	}
+	function clearOffer(){
+		self.offer = {};
+	}
 
 	self.map = {
 		center: {
@@ -37,8 +46,19 @@ function WantFoodController(uiGmapGoogleMapApi, userService, foodService, $q) {
 		zoom: 12
 	};
 	self.foods = [];
+	self.usersFood = [];
+	self.offer = {};
+	self.selectedFood = null;
+	self.selectFood = function(food){
+		if (self.selectedFood != food){
+			//clear out any current offer in the making
+			clearOffer();
+		}
+		self.selectedFood = food;
+		self.offer.wantedFood = food.$id;
+	};
 
-
+	//inti
 	uiGmapGoogleMapApi.then(function(maps){
 		//get the current location from the browser
 		if (navigator.geolocation){
@@ -47,6 +67,10 @@ function WantFoodController(uiGmapGoogleMapApi, userService, foodService, $q) {
 				.then(getFoods)
 				.then(setFoodToSelf), console.error
 			);
+			userService.getUser()
+				.then(foodService.getFoodForUser)
+				.then(setUsersFoodToSelf)
+				.catch(console.error);
 		}
 		else {
 			//show them a way to create an account (without eula) so they can enter their address

@@ -4,7 +4,7 @@
     </map-header>
     <map>
         <ui-gmap-google-map center='wantFoodController.map.center' zoom='wantFoodController.map.zoom'>
-            <ui-gmap-marker ng-repeat="food in wantFoodController.foods"
+            <ui-gmap-marker ng-click="wantFoodController.selectedFood = food" ng-repeat="food in wantFoodController.foods"
                     idKey='food.$id'
                     coords='food.coords'>
             </ui-gmap-marker>
@@ -13,11 +13,18 @@
 </map-panel>
 <result-list>
     <result-list-header>
-        <input type="text">
+        <input type="text" ng-model="searchString">
         <i class="fa fa-search"></i>
     </result-list-header>
-    <result-item ng-repeat="food in wantFoodController.foods">
+    <result-item ng-click="wantFoodController.selectFood(food)" ng-class="{'selected': food == wantFoodController.selectedFood}" ng-repeat="food in wantFoodController.foods | filter:searchString">
         {{food.name}}: {{food.quantity}} {{food.measurement}}
         <div><small>{{food.description}}</small></div>
+        <food-offer ng-if="food == wantFoodController.selectedFood">
+            Offer My
+            <select ng-model="wantFoodController.offer.offeredFood" ng-options="myFood.$id as myFood.name for myFood in wantFoodController.usersFood"></select>
+            Message
+            <textarea ng-model="wantFoodController.offer.message"></textarea>
+            <button class="btn btn-primary">Send Offer</button>
+        </food-offer>
     </result-item>
 </result-list>

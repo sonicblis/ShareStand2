@@ -15,8 +15,13 @@
 
 		self.foodList = []; //firebase array of food items
 		self.adding = false;
+		self.selectedFood = {};
 		self.hideAdder = function(){
 			self.adding = false;
+		};
+		self.edit = function(food){
+			self.selectedFood = food;
+			self.adding = true;
 		};
 
 		//init

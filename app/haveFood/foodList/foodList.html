@@ -1,7 +1,7 @@
-<heading>Your Food</heading>
+<heading></heading>
 <div ng-show="foodListController.adding">
     <div class="col-lg-3 hidden-md-down"></div>
-    <food-adder on-hide="foodListController.hideAdder()" ng-class="{'display':foodListController.adding}" class="col-lg-6"></food-adder>
+    <food-adder food="foodListController.selectedFood" on-hide="foodListController.hideAdder()" ng-class="{'display':foodListController.adding}" class="col-lg-6"></food-adder>
 </div>
 <div ng-hide="foodListController.adding">
     <div class="col-lg-3 hidden-md-down"></div>
@@ -14,6 +14,10 @@
         <button ng-click="foodListController.adding = true" ng-hide="foodListController.adding" class="btn btn-primary">Add Food</button>
 
         <!--food list-->
-        <div class="food-item" ng-repeat="food in foodListController.foodList"><span class="control-label">{{food.name}}</span>: <span class="hidden-sm-down">{{food.description}}</span> <div class="quantity">{{food.quantity}} {{food.measurement}}</div></div>
+        <div ng-click="foodListController.edit(food)" class="food-item" ng-repeat="food in foodListController.foodList">
+            <span class="control-label">{{food.name}}</span>:
+            <span class="hidden-sm-down">{{food.description}}</span>
+            <div class="quantity">{{food.quantity}} {{food.measurement}}</div>
+        </div>
     </div>
 </div>
