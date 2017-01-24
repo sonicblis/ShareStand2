@@ -21,6 +21,7 @@
     "ui-router-extras": "^0.1.0"
   },
   "dependencies": {
-    "angular-google-maps": "^2.3.4"
+    "angular-google-maps": "^2.3.4",
+    "toastr": "^2.1.2"
   }
 }

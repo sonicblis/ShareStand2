@@ -32,7 +32,8 @@ gulp.task ('thirdParty', function () {
 		'bower_components/angularfire/dist/angularfire.min.js',
 		'node_modules/angular-sanitize/angular-sanitize.min.js',
 		'node_modules/ui-router-extras/release/modular/ct-ui-router-extras.core.min.js',
-		'node_modules/ui-router-extras/release/modular/ct-ui-router-extras.dsr.min.js'
+		'node_modules/ui-router-extras/release/modular/ct-ui-router-extras.dsr.min.js',
+		'node_modules/toastr/build/toastr.min.js'
 	])
 		.pipe (concat ('thirdparty.js'))
 		.pipe (gulp.dest ('dist/'));

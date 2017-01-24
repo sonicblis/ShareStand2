@@ -4,7 +4,7 @@
     </map-header>
     <map>
         <ui-gmap-google-map center='wantFoodController.map.center' zoom='wantFoodController.map.zoom'>
-            <ui-gmap-marker ng-click="wantFoodController.selectedFood = food" ng-repeat="food in wantFoodController.foods"
+            <ui-gmap-marker ng-repeat="food in wantFoodController.foods"
                     idKey='food.$id'
                     coords='food.coords'>
             </ui-gmap-marker>
@@ -24,7 +24,7 @@
             <select ng-model="wantFoodController.offer.offeredFood" ng-options="myFood.$id as myFood.name for myFood in wantFoodController.usersFood"></select>
             Message
             <textarea ng-model="wantFoodController.offer.message"></textarea>
-            <button class="btn btn-primary">Send Offer</button>
+            <button class="btn btn-primary" ng-click="wantFoodController.sendOffer(wantFoodController.offer)">Send Offer</button>
         </food-offer>
     </result-item>
 </result-list>

@@ -2,13 +2,14 @@
 	angular.module('shareStand')
 		.component('wantFood', {
 			templateUrl: 'app/wantFood/wantFood.html',
-			controller: ['uiGmapGoogleMapApi', 'userService', 'foodService', '$q', WantFoodController],
+			controller: ['uiGmapGoogleMapApi', 'userService', 'foodService', '$q', '$timeout', WantFoodController],
 			controllerAs: 'wantFoodController'
 		});
 })();
 
-function WantFoodController(uiGmapGoogleMapApi, userService, foodService, $q) {
-	var self = this;
+function WantFoodController(uiGmapGoogleMapApi, userService, foodService, $q, $timeout) {
+	var self = this,
+		ensureOffers = new $q.defer();
 
 	function setMapCenter(geoInfo){
 		return $q(function (resolve, reject) {
@@ -23,8 +24,17 @@ function WantFoodController(uiGmapGoogleMapApi, userService, foodService, $q) {
 				.then(resolve);
 		});
 	}
+	function foodItemAdded(event){
+
+	}
+	function setupNewFoodWatch(food){
+		return $q(function (resolve) {
+			food.$watch(foodItemAdded);
+			resolve(food);
+		});
+	}
 	function setFoodToSelf(foodWatcher){
-		return $q(function (resolve, reject) {
+		return $q(function (resolve) {
 			self.foods = foodWatcher;
 			resolve(foodWatcher);
 		});
@@ -38,6 +48,13 @@ function WantFoodController(uiGmapGoogleMapApi, userService, foodService, $q) {
 	function clearOffer(){
 		self.offer = {};
 	}
+	function setOffersToSelf(offers){
+		return $q(function (resolve) {
+			self.offers = offers.val();
+			ensureOffers.resolve(offers.val());
+			resolve(offers.val());
+		});
+	}
 
 	self.map = {
 		center: {
@@ -48,6 +65,7 @@ function WantFoodController(uiGmapGoogleMapApi, userService, foodService, $q) {
 	self.foods = [];
 	self.usersFood = [];
 	self.offer = {};
+	self.offers = [];
 	self.selectedFood = null;
 	self.selectFood = function(food){
 		if (self.selectedFood != food){
@@ -56,6 +74,18 @@ function WantFoodController(uiGmapGoogleMapApi, userService, foodService, $q) {
 		}
 		self.selectedFood = food;
 		self.offer.wantedFood = food.$id;
+		self.offer.owner = food.owner;
+	};
+	self.sendOffer = function(offer){
+		userService.getUser()
+			.then((user) => {
+				offer.author = user.$id;
+				foodService.saveOffer(offer)
+					.then(() => {
+						toastr.success('Your offer has been sent');
+						$timeout(() => self.selectedFood = null);
+					});
+			});
 	};
 
 	//inti
@@ -64,12 +94,17 @@ function WantFoodController(uiGmapGoogleMapApi, userService, foodService, $q) {
 		if (navigator.geolocation){
 			navigator.geolocation.getCurrentPosition(
 				(geoInfo) => setMapCenter(geoInfo)
-				.then(getFoods)
-				.then(setFoodToSelf), console.error
+					.then(getFoods)
+					.then(setupNewFoodWatch)
+					.then(setFoodToSelf), console.error
 			);
 			userService.getUser()
 				.then(foodService.getFoodForUser)
 				.then(setUsersFoodToSelf)
+				.catch(console.error);
+			userService.getUser()
+				.then(foodService.getOffersByUser)
+				.then(setOffersToSelf)
 				.catch(console.error);
 		}
 		else {
